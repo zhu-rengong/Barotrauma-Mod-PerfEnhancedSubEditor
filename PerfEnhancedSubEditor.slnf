@@ -1,0 +1,9 @@
+{
+  "solution": {
+    "path": "PerfEnhancedSubEditor.sln",
+    "projects": [
+      "ClientProject\\WindowsClient.csproj",
+      "SharedProject\\SharedSource.shproj"
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\SharedProject\SharedProject.projitems" Label="Shared" />
+  <Import Project="../UserBuildData.props" />
+  <Import Project="../Build.props" />
+
+  <ItemGroup>
+    <Reference Include="Barotrauma">
+      <HintPath>$(RefsPath)\Windows\Barotrauma.dll</HintPath>
+    </Reference>
+    <Reference Include="BarotraumaCore">
+      <HintPath>$(RefsPath)\Windows\BarotraumaCore.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoGame.Framework.Windows.NetStandard">
+      <HintPath>$(RefsPath)\MonoGame.Framework.Windows.NetStandard.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DefineConstants>TRACE;WINDOWS;CLIENT</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DefineConstants>TRACE;WINDOWS;CLIENT</DefineConstants>
+  </PropertyGroup>
+
+  <Target Name="CopyFiles" AfterTargets="Build">
+    <ItemGroup>
+      <Assemblies Include="$(TargetDir)$(TargetName).dll" />
+      <DepsFiles Include="$(TargetDir)$(TargetName).deps.json" />
+    </ItemGroup>
+    <Copy SourceFiles="@(Assemblies)" DestinationFiles="$(MSBuildThisFileDirectory)..\ContentPackageBuilder\Content\bin\Client\Windows\$(TargetName).dll" />
+    <Copy SourceFiles="@(DepsFiles)" DestinationFiles="$(MSBuildThisFileDirectory)..\ContentPackageBuilder\Content\bin\Client\Windows\$(TargetName).deps.json" />
+  </Target>
+
+</Project>
